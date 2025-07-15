@@ -40,7 +40,7 @@ Dự án hỗ trợ đầy đủ chức năng cho cả **khách hàng** và **qu
 ---
 
 ## 🚀 Cài đặt & chạy dự án
-1. Clone repo:  git clone https://github.com/your-username/gshoes-shop.git
+1. Clone repo:  git clone https://github.com/QuangDai2309/GShoes_Shop.git
 2. Import database từ file gshoes_shop.sql trong thư mục gốc.
 3. Cấu hình kết nối CSDL trong file includes/db.php.
 4. Khởi động XAMPP và truy cập:
