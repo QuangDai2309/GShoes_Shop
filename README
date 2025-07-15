@@ -1,0 +1,52 @@
+# 👟 GShoes Shop - PHP MVC Project
+
+## 📌 Giới thiệu  
+**GShoes Shop** là một website bán giày trực tuyến được xây dựng với PHP thuần theo mô hình MVC.  
+Dự án hỗ trợ đầy đủ chức năng cho cả **khách hàng** và **quản trị viên**.
+
+---
+
+## ✨ Tính năng
+
+### 👤 Khách hàng:
+- ✅ Đăng ký tài khoản (có xác thực qua email bằng OTP)
+- ✅ Đăng nhập / Đăng xuất
+- ✅ Quên mật khẩu (gửi email kèm link đặt lại)
+- ✅ Đổi mật khẩu
+- ✅ Duyệt sản phẩm (trang chủ, danh mục, chi tiết)
+- ✅ Thêm sản phẩm vào giỏ hàng
+- ✅ Mua ngay / Thanh toán
+- ✅ Xem lịch sử & chi tiết đơn hàng
+- ✅ Yêu thích sản phẩm
+- ✅ Trang thông báo đặt hàng thành công
+
+### 🛠️ Quản trị viên (Admin):
+- ✅ Đăng nhập
+- ✅ Dashboard tổng quan
+- ✅ Quản lý danh mục sản phẩm
+- ✅ Quản lý sản phẩm (bao gồm ảnh phụ và tồn kho theo size)
+- ✅ Quản lý đơn hàng (cập nhật trạng thái, xem chi tiết)
+- ✅ Quản lý người dùng
+
+---
+
+## 🧰 Công nghệ sử dụng
+- ⚙️ PHP thuần (không dùng framework)
+- 🛢️ MySQL (XAMPP)
+- 🎨 Bootstrap 5 cho giao diện
+- ✉️ PHPMailer (gửi email OTP và reset mật khẩu)
+- 🧱 Mô hình MVC (Model - View - Controller)
+
+---
+
+## 🚀 Cài đặt & chạy dự án
+1. Clone repo:  git clone https://github.com/QuangDai2309/GShoes_Shop.git
+2. Import database từ file gshoes_shop.sql trong thư mục gốc.
+3. Cấu hình kết nối CSDL trong file includes/db.php.
+4. Khởi động XAMPP và truy cập:
+- Trang người dùng: http://localhost/GShoes_Shop/
+- Trang admin: http://localhost/GShoes_Shop/admin/
+
+🙌 Tác giả
+- Tên: Quảng Đại
+- GitHub: github.com/QuangDai2309
