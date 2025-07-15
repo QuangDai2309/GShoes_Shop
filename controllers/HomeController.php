@@ -5,7 +5,7 @@ class HomeController
 {
     public function index()
     {
-        $featured = Product::getFeatured(6); // ✅ gọi model, không phải ProductController
+        $featured = Product::getFeatured(4); // 
         require 'views/home/index.php';
     }
 }

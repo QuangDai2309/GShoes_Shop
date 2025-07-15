@@ -5,48 +5,13 @@ $title = 'Danh Sách Sản Phẩm - GShoes Shop';
 ?>
 
 <div class="container my-5">
+
     <!-- Header -->
     <div class="header-section mb-4">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h1 class="page-title">
-                    <i class="bi bi-collection me-2"></i>
-                    Danh Sách Sản Phẩm
-                </h1>
-            </div>
-            <div class="col-lg-6">
-                <div class="user-actions text-end">
-                    <?php if (!empty($_SESSION['user'])): ?>
-                        <div class="user-info mb-2">
-                            <span class="welcome-text">Xin chào, <strong><?= htmlspecialchars($_SESSION['user']['name']) ?></strong></span>
-                        </div>
-                        <div class="action-buttons">
-                            <a href="?controller=auth&action=profile" class="btn btn-sm btn-outline-warning">
-                                <i class="bi bi-person me-1"></i>Tài khoản
-                            </a>
-                            <a href="?controller=order&action=history" class="btn btn-sm btn-outline-info">
-                                <i class="bi bi-clock-history me-1"></i>Đơn hàng
-                            </a>
-                            <a href="?controller=wishlist&action=view" class="btn btn-sm btn-outline-danger">
-                                <i class="bi bi-heart me-1"></i>Yêu thích
-                            </a>
-                            <a href="?controller=auth&action=logout" class="btn btn-sm btn-outline-secondary" onclick="return confirm('Bạn muốn đăng xuất?')">
-                                <i class="bi bi-box-arrow-right me-1"></i>Đăng xuất
-                            </a>
-                        </div>
-                    <?php else: ?>
-                        <div class="action-buttons">
-                            <a href="?controller=auth&action=register" class="btn btn-outline-warning">
-                                <i class="bi bi-person-plus me-1"></i>Đăng ký
-                            </a>
-                            <a href="?controller=auth&action=login" class="btn btn-warning">
-                                <i class="bi bi-box-arrow-in-right me-1"></i>Đăng nhập
-                            </a>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
+        <h1 class="page-title">
+            <i class="bi bi-collection me-2"></i>
+            Danh Sách Sản Phẩm
+        </h1>
     </div>
 
     <!-- Filter Form -->
@@ -56,13 +21,27 @@ $title = 'Danh Sách Sản Phẩm - GShoes Shop';
             <input type="hidden" name="action" value="list" />
 
             <div class="row g-3">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="keyword" class="form-label">
                         <i class="bi bi-search me-1"></i>Tìm kiếm
                     </label>
                     <input type="text" id="keyword" name="keyword" class="form-control"
                         value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>"
                         placeholder="Nhập tên sản phẩm...">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="category" class="form-label">
+                        <i class="bi bi-tags me-1"></i>Danh mục
+                    </label>
+                    <select id="category" name="category_id" class="form-select">
+                        <option value="">Tất cả</option>
+                        <?php foreach ($categories as $cat): ?>
+                            <option value="<?= $cat['id'] ?>" <?= (isset($_GET['category_id']) && $_GET['category_id'] == $cat['id']) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($cat['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
 
                 <div class="col-md-2">
@@ -95,16 +74,13 @@ $title = 'Danh Sách Sản Phẩm - GShoes Shop';
                     </select>
                 </div>
 
-                <div class="col-md-2">
-                    <label class="form-label">&nbsp;</label>
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-warning">
-                            <i class="bi bi-funnel me-1"></i>Lọc
-                        </button>
-                        <a href="?controller=product&action=list" class="btn btn-outline-secondary btn-sm">
-                            <i class="bi bi-arrow-clockwise me-1"></i>Reset
-                        </a>
-                    </div>
+                <div class="col-md-12 text-end">
+                    <button type="submit" class="btn btn-warning me-2">
+                        <i class="bi bi-funnel me-1"></i>Lọc
+                    </button>
+                    <a href="?controller=product&action=list" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-clockwise me-1"></i>Reset
+                    </a>
                 </div>
             </div>
         </form>
@@ -112,76 +88,75 @@ $title = 'Danh Sách Sản Phẩm - GShoes Shop';
 
     <!-- Product List -->
     <?php if (empty($products)): ?>
-        <div class="empty-state">
-            <div class="text-center py-5">
-                <i class="bi bi-inbox display-1 text-muted"></i>
-                <h3 class="text-muted mt-3">Không tìm thấy sản phẩm</h3>
-                <p class="text-muted">Vui lòng thử lại với từ khóa khác</p>
-                <a href="?controller=product&action=list" class="btn btn-warning">
-                    <i class="bi bi-arrow-left me-1"></i>Xem tất cả sản phẩm
-                </a>
-            </div>
+        <div class="empty-state text-center p-5 border rounded">
+            <i class="bi bi-inbox display-1 text-muted"></i>
+            <h3 class="text-muted mt-3">Không tìm thấy sản phẩm</h3>
+            <p class="text-muted">Vui lòng thử lại với từ khóa khác</p>
+            <a href="?controller=product&action=list" class="btn btn-warning mt-3">
+                <i class="bi bi-arrow-left me-1"></i>Xem tất cả sản phẩm
+            </a>
         </div>
     <?php else: ?>
-        <div class="products-grid">
-            <div class="row g-4">
-                <?php foreach ($products as $product): ?>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src="/Gshoes_Shop<?= htmlspecialchars($product['thumbnail']) ?>"
-                                    alt="<?= htmlspecialchars($product['name']) ?>">
-                                <div class="product-overlay">
-                                    <a href="?controller=product&action=detail&id=<?= $product['id'] ?>"
-                                        class="btn btn-light btn-sm">
-                                        <i class="bi bi-eye me-1"></i>Xem chi tiết
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="product-info">
-                                <h5 class="product-name"><?= htmlspecialchars($product['name']) ?></h5>
-                                <div class="product-price">
-                                    <span class="price-current"><?= number_format($product['price']) ?>₫</span>
-                                    <span class="price-old"><?= number_format($product['price'] * 1.2) ?>₫</span>
-                                </div>
-
-                                <div class="product-actions">
-                                    <a href="?controller=wishlist&action=add&product_id=<?= $product['id'] ?>"
-                                        class="btn btn-outline-danger btn-sm">
-                                        <i class="bi bi-heart me-1"></i>Yêu thích
-                                    </a>
-                                    <a href="?controller=product&action=detail&id=<?= $product['id'] ?>"
-                                        class="btn btn-warning btn-sm">
-                                        <i class="bi bi-cart-plus me-1"></i>Mua ngay
-                                    </a>
-                                </div>
+        <div class="products-grid row g-4">
+            <?php foreach ($products as $product): ?>
+                <div class="col-lg-4 col-md-6">
+                    <div class="product-card border rounded shadow-sm p-3 h-100 d-flex flex-column">
+                        <div class="product-image mb-3 position-relative" style="height: 220px; overflow: hidden;">
+                            <img src="/Gshoes_Shop<?= htmlspecialchars($product['thumbnail']) ?>"
+                                alt="<?= htmlspecialchars($product['name']) ?>"
+                                class="w-100 h-100 object-fit-cover">
+                            <div class="image-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                                <a href="?controller=product&action=detail&id=<?= $product['id'] ?>"
+                                    class="btn btn-warning btn-sm">Xem chi tiết</a>
                             </div>
                         </div>
+
+                        <div class="product-info flex-grow-1">
+                            <h5 class="product-name fw-bold mb-2"><?= htmlspecialchars($product['name']) ?></h5>
+                            <div class="product-price mb-3">
+                                <span class="price-current text-danger fw-bold fs-5"><?= number_format($product['price']) ?>₫</span>
+                                <span class="price-old text-muted text-decoration-line-through ms-2"><?= number_format($product['price'] * 1.2) ?>₫</span>
+                            </div>
+                        </div>
+
+                        <div class="product-actions d-flex gap-2">
+                            <a href="?controller=wishlist&action=add&product_id=<?= $product['id'] ?>"
+                                class="btn btn-outline-danger flex-grow-1 btn-sm">
+                                <i class="bi bi-heart me-1"></i>Yêu thích
+                            </a>
+
+                            <form method="post" action="?controller=cart&action=add" class="flex-grow-1 m-0">
+                                <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                                <input type="hidden" name="size" value="38"> <!-- Mặc định size 38, bạn sửa sau nếu muốn chọn size -->
+                                <input type="hidden" name="qty" value="1">
+                                <button type="submit" name="action_type" value="buy_now" class="btn btn-warning btn-sm w-100">
+                                    <i class="bi bi-cart-plus me-1"></i>Mua ngay
+                                </button>
+                            </form>
+                        </div>
+
                     </div>
-                <?php endforeach; ?>
-            </div>
+                </div>
+            <?php endforeach; ?>
         </div>
 
         <!-- Pagination -->
         <?php if ($totalPages > 1): ?>
-            <nav class="pagination-nav mt-5">
-                <div class="pagination-wrapper">
+            <nav class="pagination-nav mt-5 d-flex justify-content-center">
+                <div class="pagination-wrapper d-flex gap-2 align-items-center">
                     <?php
                     $currentPage = $currentPage ?? 1;
                     $queryParams = $_GET;
                     unset($queryParams['page']);
 
-                    // Trang trước
                     if ($currentPage > 1):
                         $queryParams['page'] = $currentPage - 1;
                     ?>
-                        <a class="page-btn prev-btn" href="?<?= http_build_query($queryParams) ?>">
+                        <a class="page-btn btn btn-outline-secondary" href="?<?= http_build_query($queryParams) ?>">
                             <i class="bi bi-chevron-left"></i>
                         </a>
                     <?php endif; ?>
 
-                    <!-- Các số trang -->
                     <?php
                     $start = max(1, $currentPage - 2);
                     $end = min($totalPages, $currentPage + 2);
@@ -190,15 +165,14 @@ $title = 'Danh Sách Sản Phẩm - GShoes Shop';
                         $queryParams['page'] = $i;
                         $url = '?' . http_build_query($queryParams);
                     ?>
-                        <a class="page-btn <?= $i == $currentPage ? 'active' : '' ?>"
+                        <a class="page-btn btn <?= $i == $currentPage ? 'btn-warning' : 'btn-outline-secondary' ?>"
                             href="<?= $url ?>"><?= $i ?></a>
                     <?php endfor; ?>
 
-                    <!-- Trang tiếp -->
                     <?php if ($currentPage < $totalPages):
                         $queryParams['page'] = $currentPage + 1;
                     ?>
-                        <a class="page-btn next-btn" href="?<?= http_build_query($queryParams) ?>">
+                        <a class="page-btn btn btn-outline-secondary" href="?<?= http_build_query($queryParams) ?>">
                             <i class="bi bi-chevron-right"></i>
                         </a>
                     <?php endif; ?>
@@ -209,228 +183,52 @@ $title = 'Danh Sách Sản Phẩm - GShoes Shop';
 </div>
 
 <style>
-    /* Header Section */
-    .header-section {
-        background: linear-gradient(135deg, #fff3cd, #f8f9fa);
-        border-radius: 12px;
-        padding: 2rem;
-        border: 1px solid #e9ecef;
-    }
-
     .page-title {
-        color: #2c3e50;
-        font-size: 2.2rem;
+        font-size: 1.8rem;
         font-weight: 700;
-        margin: 0;
-    }
-
-    .welcome-text {
-        color: #6c757d;
-        font-size: 0.9rem;
-    }
-
-    .action-buttons .btn {
-        margin: 0 0.25rem;
-        border-radius: 6px;
-    }
-
-    /* Filter Section */
-    .filter-form {
-        background: #ffffff;
-        border-radius: 12px;
-        padding: 2rem;
-        border: 1px solid #e9ecef;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 0;
     }
 
     .filter-form .form-label {
         font-weight: 600;
-        color: #495057;
-        margin-bottom: 0.5rem;
-    }
-
-    .filter-form .form-control,
-    .filter-form .form-select {
-        border-radius: 8px;
-        border: 1px solid #ced4da;
-        padding: 0.5rem 0.75rem;
-    }
-
-    .filter-form .form-control:focus,
-    .filter-form .form-select:focus {
-        border-color: #ffc107;
-        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
-    }
-
-    /* Product Cards */
-    .products-grid {
-        margin-top: 2rem;
+        margin-bottom: 0.3rem;
     }
 
     .product-card {
-        background: #ffffff;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-        border: 1px solid #e9ecef;
+        transition: box-shadow 0.3s ease;
     }
 
     .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+
+    .pagination-wrapper a.page-btn {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
     }
 
     .product-image {
         position: relative;
-        height: 220px;
-        overflow: hidden;
     }
 
-    .product-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-    }
-
-    .product-card:hover .product-image img {
-        transform: scale(1.05);
-    }
-
-    .product-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+    .image-overlay {
         background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
         opacity: 0;
         transition: opacity 0.3s ease;
     }
 
-    .product-card:hover .product-overlay {
+    .product-image:hover .image-overlay {
         opacity: 1;
-    }
-
-    .product-info {
-        padding: 1.5rem;
-    }
-
-    .product-name {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #2c3e50;
-        margin-bottom: 0.75rem;
-        line-height: 1.3;
-    }
-
-    .product-price {
-        margin-bottom: 1rem;
-    }
-
-    .price-current {
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: #dc3545;
-    }
-
-    .price-old {
-        font-size: 0.9rem;
-        color: #6c757d;
-        text-decoration: line-through;
-        margin-left: 0.5rem;
-    }
-
-    .product-actions {
-        display: flex;
-        gap: 0.5rem;
-    }
-
-    .product-actions .btn {
-        flex: 1;
-        border-radius: 8px;
-        font-size: 0.85rem;
-        padding: 0.5rem 1rem;
-    }
-
-    /* Empty State */
-    .empty-state {
-        background: #f8f9fa;
-        border-radius: 12px;
-        padding: 3rem;
-        text-align: center;
-        border: 1px solid #e9ecef;
-    }
-
-    /* Pagination */
-    .pagination-nav {
-        display: flex;
-        justify-content: center;
-    }
-
-    .pagination-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .page-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
-        border: 1px solid #dee2e6;
-        color: #6c757d;
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-
-    .page-btn:hover {
-        background: #ffc107;
-        color: white;
-        border-color: #ffc107;
-    }
-
-    .page-btn.active {
-        background: #ffc107;
-        color: white;
-        border-color: #ffc107;
-    }
-
-    .prev-btn,
-    .next-btn {
-        background: #f8f9fa;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .header-section {
-            padding: 1.5rem;
-        }
-
-        .page-title {
-            font-size: 1.8rem;
-        }
-
-        .user-actions {
-            text-align: left !important;
-            margin-top: 1rem;
-        }
-
-        .filter-form {
-            padding: 1.5rem;
-        }
-
-        .product-info {
-            padding: 1rem;
-        }
     }
 </style>
 
