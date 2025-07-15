@@ -95,7 +95,7 @@ class ProductController
     }
 
     /* Helper upload file, trả về relative path hoặc false */
-    function uploadFile($file, $targetDir = '/uploads/products/')
+    function uploadFile($file, $targetDir = '/images/products/')
     {
         if (!isset($file['tmp_name']) || $file['error'] !== UPLOAD_ERR_OK) {
             return null;
