@@ -111,7 +111,16 @@ class Product
         return $product;
     }
 
-    public static function getFeatured($limit = 6)
+    public static function getFavoriteProduct($limit = 6)
+    {
+        $pdo = getPDO();
+        $stmt = $pdo->prepare("SELECT * FROM products ORDER BY 'like' DESC LIMIT ?");
+        $stmt->bindValue(1, (int)$limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public static function getLatestProduct($limit = 6)
     {
         $pdo = getPDO();
         $stmt = $pdo->prepare("SELECT * FROM products ORDER BY created_at DESC LIMIT ?");
@@ -120,6 +129,15 @@ class Product
         return $stmt->fetchAll();
     }
 
+    public static function getFeatured($limit = 6)
+    {
+        $pdo = getPDO();
+        $stmt = $pdo->prepare("SELECT * FROM products ORDER BY view DESC LIMIT ?");
+        $stmt->bindValue(1, (int)$limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    
     public static function getSizes()
     {
         $pdo = getPDO();

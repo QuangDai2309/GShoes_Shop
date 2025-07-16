@@ -8,29 +8,52 @@ require_once __DIR__ . '/../layouts/header.php';
     <div class="row g-4">
         <!-- ẢNH SẢN PHẨM -->
         <div class="col-lg-6">
-            <?php if (!empty($product['images'])): ?>
-                <div id="productCarousel" class="carousel slide rounded-4 overflow-hidden shadow" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <?php foreach ($product['images'] as $i => $img): ?>
-                            <div class="carousel-item <?= $i === 0 ? 'active' : '' ?>">
-                                <img src="/GShoes_Shop<?= htmlspecialchars($img['img_path']) ?>"
-                                    alt="<?= htmlspecialchars($img['alt_text'] ?: $product['name']) ?>"
-                                    class="d-block w-100"
-                                    style="height:450px;object-fit:cover">
-                            </div>
-                        <?php endforeach; ?>
+            <div id="productCarousel" class="carousel slide rounded-4 overflow-hidden shadow" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Ảnh chính từ thumbnail -->
+                    <div class="carousel-item active">
+                        <img src="/GShoes_Shop<?= htmlspecialchars($product['thumbnail']) ?>"
+                            alt="<?= htmlspecialchars($product['name']) ?>"
+                            class="d-block w-100"
+                            style="height:450px;object-fit:cover">
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
+                    <!-- Ảnh phụ từ products['images'] -->
+                    <?php foreach ($product['images'] as $img): ?>
+                        <div class="carousel-item">
+                            <img src="/GShoes_Shop<?= htmlspecialchars($img['img_path']) ?>"
+                                alt="<?= htmlspecialchars($img['alt_text'] ?: $product['name']) ?>"
+                                class="d-block w-100"
+                                style="height:450px;object-fit:cover">
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-            <?php else: ?>
-                <img src="/GShoes_Shop<?= htmlspecialchars($product['thumbnail']) ?>"
-                    class="w-100 rounded-4 shadow"
-                    style="height:450px;object-fit:cover" alt="<?= htmlspecialchars($product['name']) ?>">
+                <!-- Nút điều khiển carousel -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+
+            <!-- Hiển thị ảnh phụ dưới ảnh chính -->
+            <?php if (!empty($product['images'])): ?>
+                <div class="d-flex flex-wrap gap-2 mt-3 justify-content-center">
+                    <!-- Thumbnail nhỏ cho ảnh chính -->
+                    <img src="/GShoes_Shop<?= htmlspecialchars($product['thumbnail']) ?>"
+                         class="img-thumbnail cursor-pointer"
+                         style="width: 80px; height: 80px; object-fit: cover;"
+                         data-bs-target="#productCarousel" data-bs-slide-to="0"
+                         alt="<?= htmlspecialchars($product['name']) ?>">
+                    <!-- Các ảnh phụ -->
+                    <?php foreach ($product['images'] as $i => $img): ?>
+                        <img src="/GShoes_Shop<?= htmlspecialchars($img['img_path']) ?>"
+                             class="img-thumbnail cursor-pointer"
+                             style="width: 80px; height: 80px; object-fit: cover;"
+                             data-bs-target="#productCarousel" data-bs-slide-to="<?= $i + 1 ?>"
+                             alt="<?= htmlspecialchars($img['alt_text'] ?: $product['name']) ?>">
+                    <?php endforeach; ?>
+                </div>
             <?php endif; ?>
         </div>
 
@@ -77,7 +100,7 @@ require_once __DIR__ . '/../layouts/header.php';
                         <div class="d-flex align-items-center gap-2" style="width: 150px;">
                             <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changeQty(-1)">-</button>
                             <input type="number" class="form-control text-center" name="qty" id="qty" value="1" min="1" max="10">
-                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changeQty(1)">+</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick adheres="changeQty(1)">+</button>
                         </div>
                     </div>
 
@@ -154,6 +177,15 @@ require_once __DIR__ . '/../layouts/header.php';
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         transform: translateY(-2px);
         transition: all 0.3s;
+    }
+
+    .img-thumbnail.cursor-pointer {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .img-thumbnail.cursor-pointer:hover {
+        transform: scale(1.1);
     }
 
     @media (max-width: 768px) {

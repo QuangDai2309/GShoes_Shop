@@ -96,9 +96,53 @@ require_once __DIR__ . '/../layouts/header.php';
 
     <!-- Featured Products Section -->
     <section id="products" class="container my-5">
+        <h2 class="text-center mb-5 text-warning fw-bold">Sản Phẩm Mới nhất</h2>
+        <div class="row g-4">
+            <?php foreach ($latest as $product): ?>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card h-100 border-0 shadow-lg overflow-hidden position-relative product-card">
+                        <img src="/Gshoes_Shop<?= htmlspecialchars($product['thumbnail']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>" style="object-fit: cover; height: 250px;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-warning"><?= htmlspecialchars($product['name']) ?></h5>
+                            <p class="card-text fw-bold text-danger"><?= number_format($product['price']) ?>₫</p>
+                        </div>
+                        <div class="product-overlay d-flex flex-column gap-2">
+                            <a href="?controller=cart&action=add&id=<?= $product['id'] ?>" class="btn btn-warning rounded-pill">Mua ngay</a>
+                            <a href="?controller=product&action=detail&id=<?= $product['id'] ?>" class="btn btn-outline-warning rounded-pill">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="products" class="container my-5">
         <h2 class="text-center mb-5 text-warning fw-bold">Sản Phẩm Nổi Bật</h2>
         <div class="row g-4">
             <?php foreach ($featured as $product): ?>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card h-100 border-0 shadow-lg overflow-hidden position-relative product-card">
+                        <img src="/Gshoes_Shop<?= htmlspecialchars($product['thumbnail']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>" style="object-fit: cover; height: 250px;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-warning"><?= htmlspecialchars($product['name']) ?></h5>
+                            <p class="card-text fw-bold text-danger"><?= number_format($product['price']) ?>₫</p>
+                        </div>
+                        <div class="product-overlay d-flex flex-column gap-2">
+                            <a href="?controller=cart&action=add&id=<?= $product['id'] ?>" class="btn btn-warning rounded-pill">Mua ngay</a>
+                            <a href="?controller=product&action=detail&id=<?= $product['id'] ?>" class="btn btn-outline-warning rounded-pill">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="products" class="container my-5">
+        <h2 class="text-center mb-5 text-warning fw-bold">Sản Phẩm Yêu Thích</h2>
+        <div class="row g-4">
+            <?php foreach ($favorite as $product): ?>
                 <div class="col-md-3 col-sm-6">
                     <div class="card h-100 border-0 shadow-lg overflow-hidden position-relative product-card">
                         <img src="/Gshoes_Shop<?= htmlspecialchars($product['thumbnail']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>" style="object-fit: cover; height: 250px;">
@@ -221,7 +265,7 @@ require_once __DIR__ . '/../layouts/header.php';
                 <div class="col-md-4">
                     <div class="testimonial-card bg-white p-4 rounded-3 shadow-sm h-100">
                         <div class="d-flex align-items-center mb-3">
-                            <img src="https://images.unsplash.com/photo-1494790108755-2616c6106150?auto=format&fit=crop&w=150&q=80" class="rounded-circle me-3" alt="Khách hàng" style="width: 60px; height: 60px; object-fit: cover;">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" class="rounded-circle me-3" alt="Khách hàng" style="width: 60px; height: 60px; object-fit: cover;">
                             <div>
                                 <h6 class="mb-0 fw-bold">Trần Thị B</h6>
                                 <small class="text-muted">Khách hàng thân thiết</small>
@@ -413,15 +457,15 @@ require_once __DIR__ . '/../layouts/header.php';
         .carousel-inner {
             height: 400px;
         }
-        
+
         .carousel-caption h1 {
             font-size: 1.5rem;
         }
-        
+
         .counter {
             font-size: 2rem;
         }
-        
+
         .feature-icon i {
             font-size: 2rem !important;
         }
@@ -456,7 +500,7 @@ require_once __DIR__ . '/../layouts/header.php';
         const timer = setInterval(() => {
             current += increment;
             element.textContent = Math.floor(current);
-            
+
             if (current >= target) {
                 element.textContent = target;
                 clearInterval(timer);
