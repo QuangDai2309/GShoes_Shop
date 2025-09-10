@@ -15,28 +15,28 @@ require_once __DIR__ . '/../layouts/header.php';
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1920&q=80" class="d-block w-100" alt="Banner 1" style="object-fit: cover; height: 600px;">
-                <div class="carousel-caption">
-                    <h1 class="display-4 fw-bold text-warning">Ưu đãi mùa hè</h1>
-                    <p class="lead">Giảm giá đến 30% cho các mẫu giày mới!</p>
-                    <a href="#products" class="btn btn-warning btn-lg mt-3">Mua ngay</a>
-                </div>
+                <img src="https://file.hstatic.net/200000581855/file/banner_pc_quoc_khanh__1600_x_600_px__master.png" class="d-block w-100" alt="Banner 1" style="object-fit: cover; height: 600px;">
+                <!-- <div class="carousel-caption">
+                    <h1 class="display-4 fw-bold text-warning"></h1>
+                    <p class="lead"></p>
+                    <a href="#products" class="btn btn-warning btn-lg mt-3"></a>
+                </div> -->
             </div>
             <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1920&q=80" class="d-block w-100" alt="Banner 2" style="object-fit: cover; height: 600px;">
-                <div class="carousel-caption">
+                <img src="https://bizweb.dktcdn.net/100/347/092/themes/708609/assets/slider_2.jpg?1753792346461" class="d-block w-100" alt="Banner 2" style="object-fit: cover; height: 600px;">
+                <!-- <div class="carousel-caption">
                     <h1 class="display-4 fw-bold text-warning">Giày thể thao chính hãng</h1>
                     <p class="lead">Thoải mái vận động với phong cách thời thượng</p>
                     <a href="#products" class="btn btn-warning btn-lg mt-3">Khám phá</a>
-                </div>
+                </div> -->
             </div>
             <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1509475826633-fed577a2c71b?auto=format&fit=crop&w=1920&q=80" class="d-block w-100" alt="Banner 3" style="object-fit: cover; height: 600px;">
-                <div class="carousel-caption">
+                <img src="https://bizweb.dktcdn.net/100/347/092/themes/708609/assets/slider_3.jpg?1753792346461" class="d-block w-100" alt="Banner 3" style="object-fit: cover; height: 600px;">
+                <!-- <div class="carousel-caption">
                     <h1 class="display-4 fw-bold text-warning">Phong cách sành điệu</h1>
                     <p class="lead">Khám phá bộ sưu tập mới nhất của chúng tôi</p>
                     <a href="#products" class="btn btn-warning btn-lg mt-3">Xem ngay</a>
-                </div>
+                </div> -->
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
